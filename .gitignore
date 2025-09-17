@@ -1,0 +1,28 @@
+# venv / caches / IDE
+.venv/
+venv/
+__pycache__/
+*.pyc
+.vscode/
+.idea/
+.DS_Store
+
+# training artifacts
+*.pt
+*.pth
+*.ckpt
+config.yaml
+inspect_onnx.py
+
+# generated images/reports
+*.png
+*.jpg
+*.jpeg
+*.pdf
+
+# keep app CSVs
+!dashboard/users.csv
+!dashboard/login_log.csv
+
+# BIG models (don’t upload)
+models/*.onnx

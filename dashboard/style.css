@@ -1,0 +1,285 @@
+﻿/* =======================================
+   Durian Detector — Auth & Sidebar Styles
+   ======================================= */
+
+/* ---------- Theme tokens ---------- */
+:root{
+  --bg-1:#0b1220;          /* main card bg */
+  --bg-2:#0f172a;          /* side/nav bg  */
+  --bg-3:#111827;          /* input/control bg */
+  --ring:rgba(255,255,255,.12);
+  --text:#e5e7eb;          /* zinc-200 */
+  --muted:#94a3b8;         /* slate-400 */
+
+  /* accent */
+  --accent:#22c55e;        /* green-500 */
+  --accent-2:#16a34a;      /* green-600 */
+  --accent-soft:rgba(34,197,94,.18);
+
+  /* status */
+  --ok:#22c55e;
+  --warn:#f59e0b;
+  --err:#ef4444;
+}
+
+/* ---------- Global polishing ---------- */
+html, body {
+  letter-spacing: .1px;
+}
+
+[data-testid="stAppViewContainer"]{
+  background: radial-gradient(1200px 800px at 20% -10%, rgba(34,197,94,.06), transparent 60%),
+              radial-gradient(800px 600px at 100% 10%, rgba(59,130,246,.05), transparent 70%),
+              #0a0f1a;
+}
+
+/* Remove any leftover top pills/header from older demos */
+.nav-topbar, .sidenav-header { display:none !important; }
+
+/* =======================================
+   HERO (Title + Subheader + Hint)
+   ======================================= */
+.page-hero{
+  text-align:center;
+  padding: 8px 0 0;
+  margin-bottom: 10px;
+}
+.page-hero h1{
+  font-size: 44px;
+  font-weight: 900;
+  background: linear-gradient(90deg,#22c55e,#4ade80);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  margin: 0;
+}
+.page-hero .sub{
+  margin-top: 4px;
+  color: var(--muted);
+  font-size: 16px;
+}
+.page-hero .hint{
+  margin-top: 8px;
+  color: #9CA3AF;
+  font-size: 14px;
+  font-style: italic;  /* makes it look like a note/hint */
+}
+
+/* =======================================
+   SIDEBAR
+   ======================================= */
+[data-testid="stSidebar"]{
+  background: #111827;       /* lighter than page bg, visible contrast */
+  border-right: 1px solid #1e293b;
+}
+
+/*
+  Sidebar layout
+  Note: We previously centered the entire sidebar vertically, which could
+  push the first widgets (e.g. "Detection Controls" and the threshold slider)
+  out of view. Default to normal flow from the top, and only center when the
+  lightweight login nav panel is showing.
+*/
+[data-testid="stSidebar"] > div:first-child{
+  display: block;        /* normal document flow */
+  min-height: auto;      /* let content set height */
+}
+
+/* When the sidebar contains the login nav panel, center it vertically */
+[data-testid="stSidebar"]:has(.nav-panel) > div:first-child{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-height: 100vh;
+}
+
+.nav-panel{
+  background: #1e293b;       /* darker panel than sidebar */
+  border: 1px solid #334155;
+  border-radius: 16px;
+  padding: 16px 14px;
+  box-shadow: 0 10px 24px rgba(0,0,0,.45);
+  min-height: auto;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+.nav-title{
+  color: var(--text);
+  font-weight: 800;
+  letter-spacing: .3px;
+  font-size: 26px;
+  margin: 0 0 14px 0;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* Default nav entries */
+.nav-entry{
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--text);
+  background: var(--bg-3);
+  border: 1px solid var(--ring);
+  border-radius: 14px;
+  padding: 12px 14px;
+  width: 85%;
+  max-width: 260px;
+  box-shadow: 0 6px 14px rgba(0,0,0,.18);
+  margin-bottom: 10px;
+  transition: all 0.2s ease;
+}
+
+/* Special styling for the Login entry */
+.nav-login{
+  color: #22c55e;                          /* green text */
+  background: rgba(34,197,94,0.08);        /* faint green bg */
+  border: 1px solid #22c55e;
+  box-shadow: 0 6px 14px rgba(34,197,94,.25);
+}
+.nav-login:hover{
+  background: rgba(34,197,94,0.15);
+  transform: translateY(-2px);
+}
+
+/* =======================================
+   AUTH CARD (Login)
+   ======================================= */
+.auth-panel{
+  background: #1e293b;       /* same as nav-panel */
+  border: 1px solid #334155;
+  border-radius: 18px;
+  padding: 36px 32px 30px;   /* more padding */
+  box-shadow: 0 20px 45px rgba(0,0,0,.6);
+  max-width: 800px;          /* bigger login card */
+  margin: 20px auto 0;
+  backdrop-filter: blur(3px);
+}
+.auth-title{
+  color: var(--accent);
+  font-size: 26px;
+  font-weight: 900;
+  margin: 0 0 8px 0;
+  text-align: center;
+}
+.auth-sub{
+  color: var(--muted);
+  margin-bottom: 18px;
+  text-align: center;
+}
+
+/* Inputs */
+.auth-panel .stTextInput > div > div,
+.auth-panel .stPassword  > div > div{
+  background: var(--bg-3);
+  border-radius: 10px;
+  border: 1px solid var(--ring);
+  padding: 8px 12px !important;
+  color: var(--text);
+}
+.auth-panel input::placeholder{ color: #9CA3AF; }
+
+/* Focus ring on input */
+.auth-panel .stTextInput:focus-within > div > div,
+.auth-panel .stPassword:focus-within  > div > div{
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px var(--accent-soft);
+}
+
+/* Buttons (sign in) */
+.auth-panel .stButton > button{
+  width: 100%;
+  background: linear-gradient(90deg, var(--accent), var(--accent-2));
+  border: none;
+  color: white;
+  font-weight: 800;
+  border-radius: 12px;
+  padding: 12px 14px;
+  box-shadow: 0 8px 20px rgba(34,197,94,.35);
+  transition: transform .08s ease, filter .12s ease;
+}
+.auth-panel .stButton > button:hover{
+  filter: brightness(1.05);
+  transform: translateY(-2px);
+}
+.auth-panel .stButton > button:active{
+  transform: translateY(0px) scale(.99);
+}
+
+/* =======================================
+   TABLES (login history & batch log)
+   ======================================= */
+.stDataFrame, .stTable{
+  border-radius: 12px;
+  overflow: hidden;
+  border: 1px solid var(--ring);
+}
+.stDataFrame table tbody tr:nth-child(odd){
+  background-color: rgba(255,255,255,0.02);
+}
+.stDataFrame table tbody tr:nth-child(even){
+  background-color: rgba(255,255,255,0.05);
+}
+.stDataFrame table tbody tr:hover{
+  background-color: rgba(34,197,94,0.12);
+}
+.stDataFrame table th{
+  background-color: var(--bg-3) !important;
+  color: var(--text) !important;
+  font-weight: 700 !important;
+}
+.stDataFrame table td{
+  color: var(--text);
+  padding: 8px 12px;
+  font-size: 14px;
+}
+
+/* =======================================
+   ALERTS
+   ======================================= */
+.stAlert.success [data-baseweb="notification"]{
+  background: rgba(34,197,94,0.15) !important;
+  color: #22c55e !important;
+  border: 1px solid #22c55e !important;
+  border-radius: 12px !important;
+  font-weight: 600;
+}
+.stAlert.error [data-baseweb="notification"]{
+  background: rgba(239,68,68,0.15) !important;
+  color: #ef4444 !important;
+  border: 1px solid #ef4444 !important;
+  border-radius: 12px !important;
+  font-weight: 600;
+}
+.stAlert.warning [data-baseweb="notification"]{
+  background: rgba(245,158,11,0.15) !important;
+  color: #f59e0b !important;
+  border: 1px solid #f59e0b !important;
+  border-radius: 12px !important;
+  font-weight: 600;
+}
+
+/* =======================================
+   FOOTER
+   ======================================= */
+.app-footer{
+  text-align:center;
+  font-size: 12px;
+  color: rgba(255,255,255,.45); /* lighter */
+  margin: 18px 0 8px;
+}
+
+/* =======================================
+   REMOVE TOP BLACK BAR
+   ======================================= */
+section[data-testid="stHeader"]{
+  background: transparent !important;
+  height: 0 !important;
+  min-height: 0 !important;
+}
+[data-testid="stAppViewContainer"] > .main { padding-top: 0 !important; }
+#MainMenu{ visibility: hidden; }
+footer{ visibility: hidden; }
